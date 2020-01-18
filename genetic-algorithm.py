@@ -4,9 +4,9 @@ import random
 PHRASE_CIBLE = "Omae wa mō shinde iru. NANI ?!!"
 
 class Generation:
-    def __init__(self, nb_individus, denominateur_elu = 2):
+    def __init__(self, nb_individus, proportion_elu = 0.5):
         self.nb_individus = int(nb_individus)
-        self.denominateur_elu = int(denominateur_elu)
+        self.proportion_elu = proportion_elu
         self.individus = self._first_generation()
 
     def _first_generation(self):
@@ -38,18 +38,24 @@ class Generation:
                 print("error: copulage(), not same length")
             return child_individu
 
-        nb_individus_elu = int(self.nb_individus / self.denominateur_elu)
+        def other_individus_elu(individus, index_excluded_indiv):
+            return individus[:index_excluded_indiv] + individus[index_excluded_indiv + 1:]
+
+        nb_individus_elu = int(self.nb_individus * self.proportion_elu)
         individus_elu = self.individus[:nb_individus_elu]
         self.individus = []
         newIndividus = []
         i = 0
-        for individu in individus_elu:
-            # list des partenaire sexuel, on retire l'individu actuel, il ne peut pas copuler tout seul.
-            potential_sex_friends = individus_elu[:i] + individus_elu[i + 1:]
-            for j in range(self.denominateur_elu):
+        while (i < self.nb_individus) :
+            for individu in individus_elu:
+                if(i == self.nb_individus):
+                    break
+                # list des partenaire sexuel, on retire l'individu actuel, il ne peut pas copuler tout seul.
+                potential_sex_friends = other_individus_elu(individus_elu, i)
                 sex_friend = random.choice(potential_sex_friends)
                 self.individus.append(copulage(individu.phrase, sex_friend.phrase))
-            i += 1
+                i += 1
+
         self.individus.sort(key=lambda individu: individu.fitness, reverse=True)
         #self.individus = newIndividus
 
@@ -99,9 +105,9 @@ class Individu:
 
 
 def main():
-    generation = Generation(500)
+    generation = Generation(499)
     #generation._next_generation()
-    #generation.find_master_race()
+    generation.find_master_race()
     i = 1
     for individu in generation.individus:
         print("phrase n° : " + str(i))
