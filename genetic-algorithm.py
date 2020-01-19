@@ -75,7 +75,7 @@ class Individu:
         myString = ""
         for i in range(0, len(PHRASE_CIBLE)):  # range(a,b,c) parcourt les valeurs de a à b avec un pas de c
             # myString += random.choice(string.printable+"àçèéùîôêâäëïÈÉÀÇÙ")
-            myString += self._random_letter()
+            myString += self._random_letter(excluded_letter=None)
         return myString
 
     def _calcul_fitness(self):
@@ -98,7 +98,7 @@ class Individu:
             phrase = phrase[:randomRange] + randomLetter + phrase[randomRange+1:]
         return phrase
 
-    def _random_letter(self, excluded_letter=None):
+    def _random_letter(self, excluded_letter):
         letter = None
         if excluded_letter is None:
             letter = random.choice(self.LETTERS)
@@ -108,7 +108,7 @@ class Individu:
 
 
 def main():
-    def test_generation(gen):
+    def print_generation(gen):
         i = 1
         for individu in gen.individus:
             print("phrase n° : " + str(i))
@@ -116,10 +116,16 @@ def main():
             print('fitness : ' + str(individu.fitness))
             print("*******************")
             i += 1
-    generation = Generation(500)
-    #generation._next_generation(0.25)
-    #test_generation(generation)
-    generation.find_master_race()
+
+    list_result = []
+    # list_result.append(Generation(50).find_master_race())
+    # list_result.append(Generation(100).find_master_race())
+    list_result.append(Generation(500).find_master_race())
+    # list_result.append(Generation(1000).find_master_race())
+    # list_result.append(Generation(2000).find_master_race())
+
+
+    print(list_result)
 
 if __name__ == '__main__':
     main()
