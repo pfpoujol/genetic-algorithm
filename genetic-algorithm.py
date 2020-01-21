@@ -1,5 +1,6 @@
 import string
 import random
+import time
 
 PHRASE_CIBLE = "Omae wa mō shinde iru. NANI ?!!"
 
@@ -22,7 +23,7 @@ class Generation:
         def copulage(phrase1, phrase2):
             child_individu = None
             if len(phrase1) == len(phrase2):
-                len_portion_left = int(random.randrange(len(phrase1)-1))
+                len_portion_left = int(random.randrange(len(phrase1)))
                 new_phrase = phrase1[:len_portion_left-1] + phrase2[len_portion_left-1:]
                 child_individu = Individu(proba_mutation, new_phrase)
             else:
@@ -48,13 +49,14 @@ class Generation:
         self.individus.sort(key=lambda individu: individu.fitness, reverse=True)
 
     def find_master_race(self, proba_mutation=0.25):
+        start_time = time.time()
         count_cycle = 0
         while self.individus[0].fitness != 1.0:
             count_cycle += 1
             self._next_generation(proba_mutation)
-            # print(self.individus[0].phrase, end = '\r')
             print(self.individus[0].phrase)
-        print("Found in " + str(count_cycle) + " cycles.")
+        print("--- Found in %s seconds ---" % round((time.time() - start_time),3))
+        print("--- After " + str(count_cycle) + " cycles.")
         return count_cycle
 
 class Individu:
@@ -74,7 +76,6 @@ class Individu:
     def _gen_random_phrase(self):
         myString = ""
         for i in range(0, len(PHRASE_CIBLE)):  # range(a,b,c) parcourt les valeurs de a à b avec un pas de c
-            # myString += random.choice(string.printable+"àçèéùîôêâäëïÈÉÀÇÙ")
             myString += self._random_letter(excluded_letter=None)
         return myString
 
@@ -93,7 +94,7 @@ class Individu:
 
     def _mutation(self, proba_mutation, phrase):
         if random.random() < proba_mutation:
-            randomRange = int(random.randrange(len(phrase)-1))
+            randomRange = int(random.randrange(len(phrase)))
             randomLetter = self._random_letter(phrase[:randomRange])
             phrase = phrase[:randomRange] + randomLetter + phrase[randomRange+1:]
         return phrase
@@ -118,14 +119,8 @@ def main():
             i += 1
 
     list_result = []
-    # list_result.append(Generation(50).find_master_race())
-    # list_result.append(Generation(100).find_master_race())
-    list_result.append(Generation(500).find_master_race())
-    # list_result.append(Generation(1000).find_master_race())
-    # list_result.append(Generation(2000).find_master_race())
-
-
-    print(list_result)
+    # Generation(100, proportion_elu=0.1).find_master_race(proba_mutation=0.1)
+    list_result.append(Generation(500, proportion_elu=0.1).find_master_race(proba_mutation=0.9))
 
 if __name__ == '__main__':
     main()
