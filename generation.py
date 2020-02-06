@@ -1,8 +1,7 @@
-import string
-import random
 import time
+import random
+from individu import Individu
 
-PHRASE_CIBLE = "Omae wa mō shinde iru. NANI ?!!"
 
 class Generation:
     def __init__(self, nb_individus, proportion_elu=0.5):
@@ -58,69 +57,3 @@ class Generation:
         print("--- Found in %s seconds ---" % round((time.time() - start_time),3))
         print("--- After " + str(count_cycle) + " cycles.")
         return count_cycle
-
-class Individu:
-    LETTERS = string.printable+"àçèéùîôêâäëïÈÉÀÇÙō"
-    # LETTERS = string.ascii_letters+" ō?!."
-    def __init__(self, proba_mutation=0.0, phrase=None):
-        if phrase is None:
-            self.phrase = self._gen_random_phrase()
-        elif(proba_mutation==0.0):
-            self.phrase = phrase
-        else:
-            self.phrase = self._mutation(proba_mutation, phrase)
-
-        self.fitness = self._calcul_fitness()
-
-
-    def _gen_random_phrase(self):
-        myString = ""
-        for i in range(0, len(PHRASE_CIBLE)):  # range(a,b,c) parcourt les valeurs de a à b avec un pas de c
-            myString += self._random_letter(excluded_letter=None)
-        return myString
-
-    def _calcul_fitness(self):
-        fitness = 0
-        if len(self.phrase) == len(PHRASE_CIBLE):
-            numerateur = 0.0
-            # comparaison char par char
-            for x, y in zip(self.phrase, PHRASE_CIBLE):
-                if x == y:
-                    numerateur += 1
-            fitness = numerateur / len(self.phrase)
-        else:
-            print("error: calculFitness(), not same length")
-        return fitness
-
-    def _mutation(self, proba_mutation, phrase):
-        if random.random() < proba_mutation:
-            randomRange = int(random.randrange(len(phrase)))
-            randomLetter = self._random_letter(phrase[:randomRange])
-            phrase = phrase[:randomRange] + randomLetter + phrase[randomRange+1:]
-        return phrase
-
-    def _random_letter(self, excluded_letter):
-        letter = None
-        if excluded_letter is None:
-            letter = random.choice(self.LETTERS)
-        else:
-            letter = random.choice(self.LETTERS.replace(excluded_letter, ""))
-        return letter
-
-
-def main():
-    def print_generation(gen):
-        i = 1
-        for individu in gen.individus:
-            print("phrase n° : " + str(i))
-            print(individu.phrase)
-            print('fitness : ' + str(individu.fitness))
-            print("*******************")
-            i += 1
-
-    list_result = []
-    # Generation(100, proportion_elu=0.1).find_master_race(proba_mutation=0.1)
-    list_result.append(Generation(500, proportion_elu=0.1).find_master_race(proba_mutation=0.9))
-
-if __name__ == '__main__':
-    main()
