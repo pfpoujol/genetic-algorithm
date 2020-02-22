@@ -1,5 +1,8 @@
 from generation import Generation
 
+# \!/
+# \!/ VOIR LE README
+# \!/
 
 def main():
     def print_generation(gen):
