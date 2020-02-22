@@ -8,27 +8,17 @@ Generation(500, proportion_elu=0.9).find_master_race(proba_mutation=0.1)
 
 # Réponse question 2: Dressez un bilan de l’impact de ces changements sur la rapidité d’exécution de l’algorithme.
 
-500 individus
-proportion_elu=90%, proba_mutation=10% 
-  Found in 3.079 seconds
-  After 503 cycles.
-proportion_elu=50%, proba_mutation=50%
-  Found in 0.348 seconds
-  After 63 cycles.
-proportion_elu=10%, proba_mutation=90%
-  Found in 0.224 seconds 
-  After 43 cycles.
-
-2000 individus
-proportion_elu=90%, proba_mutation=10%
-  Found in 3.897 seconds
-  After 80 cycles.
-proportion_elu=50%, proba_mutation=50%
-  Found in 1.202 seconds
-  After 34 cycles.
-proportion_elu=10%, proba_mutation=90%
-  Found in 0.529 seconds
-  After 22 cycles.
+500 individus | 2000 individus
+------------ | -------------
+proportion_elu=90%, proba_mutation=10% | proportion_elu=90%, proba_mutation=10%
+------------ | -------------
+Found in 3.079 seconds, after 503 cycles. | Found in 3.897 seconds, after 80 cycles.
+proportion_elu=50%, proba_mutation=50% | proportion_elu=50%, proba_mutation=50%
+------------ | -------------
+Found in 0.348 seconds, after 63 cycles. | Found in 1.202 seconds, after 34 cycles.
+proportion_elu=10%, proba_mutation=90% | proportion_elu=10%, proba_mutation=90%
+------------ | -------------
+Found in 0.224 seconds, after 43 cycles. | Found in 0.529 seconds, after 22 cycles.
 
 Bilan : On constate que lorsque la population est plus élevée il y a moins de cycle, mais la durée pour retrouver la phrase secrète est plus élevé.
 En revanche avec une petite proportion d'élu (phrases de la génération ayant un meilleur fitness) et un fort tôt de mutation, on obtient le nombre de cycles le plus faible et la durée la plus courte pour retrouver la phrase secrète.
