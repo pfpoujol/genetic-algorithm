@@ -1,12 +1,12 @@
 Il s'agit de la partie 1 uniquement **se référer à l'autre zip pour la partie itinéraire**.
 
-"# Exemple d'utilisation :"
+# Exemple d'utilisation :
 Ajouter dans `main()` de main.py
 ```python
 Generation(500, proportion_elu=0.9).find_master_race(proba_mutation=0.1)
 ```
 
-"# Réponse question 2: Dressez un bilan de l’impact de ces changements sur la rapidité d’exécution de l’algorithme."
+# Réponse question 2: Dressez un bilan de l’impact de ces changements sur la rapidité d’exécution de l’algorithme.
 
 500 individus
 proportion_elu=90%, proba_mutation=10% 
