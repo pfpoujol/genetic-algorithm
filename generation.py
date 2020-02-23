@@ -2,7 +2,6 @@ import time
 import random
 from individu import Individu
 
-
 class Generation:
     def __init__(self, nb_individus, proportion_elu=0.5):
         self._nb_individus = int(nb_individus)
@@ -19,6 +18,7 @@ class Generation:
 
 
     def _next_generation(self, proba_mutation):
+
         def copulage(phrase1, phrase2):
             child_individu = None
             if len(phrase1) == len(phrase2):
@@ -54,6 +54,6 @@ class Generation:
             count_cycle += 1
             self._next_generation(proba_mutation)
             print(self.individus[0].phrase)
-        print("--- Found in %s seconds ---" % round((time.time() - start_time),3))
+        print("--- Secret phrase found in %s seconds ---" % round((time.time() - start_time),3))
         print("--- After " + str(count_cycle) + " cycles.")
         return count_cycle

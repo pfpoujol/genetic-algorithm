@@ -1,19 +1,11 @@
 from generation import Generation
-
-
+from individu import Individu
+from individu_itineraire import IndividuItineraire
+from abc import ABC, abstractmethod
 def main():
-    def print_generation(gen):
-        i = 1
-        for individu in gen.individus:
-            print("phrase n° : " + str(i))
-            print(individu.phrase)
-            print('fitness : ' + str(individu.fitness))
-            print("*******************")
-            i += 1
-
-    list_result = []
-    # Generation(100, proportion_elu=0.1).find_master_race(proba_mutation=0.1)
-    list_result.append(Generation(500, proportion_elu=0.5).find_master_race(proba_mutation=0.2))
-
+    # IndividuItineraire().do_something()
+    Individu().do_something()
+    IndividuItineraire().do_something()
+    Generation(500, proportion_elu=0.1).find_master_race(proba_mutation=0.9)
 if __name__ == '__main__':
     main()
