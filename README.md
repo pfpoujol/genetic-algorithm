@@ -1,5 +1,3 @@
-Il s'agit de la partie 1 uniquement **se référer à l'autre zip pour la partie itinéraire**.
-
 # Exemple d'utilisation :
 Ajouter dans `main()` de main.py
 ```python
