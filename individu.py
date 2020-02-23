@@ -8,7 +8,7 @@ class Individu(AbstractIndividu):
     LETTERS = string.printable + "àçèéùîôêâäëïÈÉÀÇÙō"
 
     def __init__(self, proba_mutation=0.0, phrase=None):
-        # super().__init__()
+        super().__init__(proba_mutation, phrase)
         if phrase is None:
             self.phrase = self._gen_random_phrase()
         elif (proba_mutation == 0.0):
